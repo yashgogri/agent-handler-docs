@@ -1,0 +1,296 @@
+openapi: 3.0.3
+info:
+  title: Merge Agent Handler API
+  version: 1.0.0
+  description: Documentation of API endpoints of Merge Agent Handler
+paths:
+  /api/v1/registered-users/:
+    post:
+      operationId: registered_users_create
+      tags:
+      - registered-users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisteredUserPublicRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/RegisteredUserPublicRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/RegisteredUserPublicRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisteredUserPublicRequest'
+          description: ''
+  /api/v1/registered-users/{id}/:
+    get:
+      operationId: registered_users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - registered-users
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisteredUserPublicResponse'
+          description: ''
+    patch:
+      operationId: registered_users_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - registered-users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedRegisteredUserPublicRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedRegisteredUserPublicRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedRegisteredUserPublicRequest'
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisteredUserPublicRequest'
+          description: ''
+    delete:
+      operationId: registered_users_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - registered-users
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/v1/tool-packs/:
+    get:
+      operationId: tool_packs_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - tool-packs
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedToolPackPublicList'
+          description: ''
+  /api/v1/tool-packs/{id}/:
+    get:
+      operationId: tool_packs_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - tool-packs
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolPackPublic'
+          description: ''
+components:
+  schemas:
+    NullEnum:
+      enum:
+      - null
+    PaginatedToolPackPublicList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToolPackPublic'
+    PatchedRegisteredUserPublicRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        origin_user_id:
+          type: string
+        origin_user_name:
+          type: string
+        shared_credential_group:
+          $ref: '#/components/schemas/SharedCredentialGroup'
+        user_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/UserTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+    RegisteredUserPublicRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        origin_user_id:
+          type: string
+        origin_user_name:
+          type: string
+        shared_credential_group:
+          $ref: '#/components/schemas/SharedCredentialGroup'
+        user_type:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/UserTypeEnum'
+          - $ref: '#/components/schemas/NullEnum'
+      required:
+      - id
+      - origin_user_id
+      - origin_user_name
+      - shared_credential_group
+    RegisteredUserPublicResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+        origin_user_id:
+          type: string
+          readOnly: true
+        origin_user_name:
+          type: string
+        shared_credential_group:
+          type: string
+          readOnly: true
+        user_type:
+          type: string
+      required:
+      - id
+      - origin_user_id
+      - origin_user_name
+      - shared_credential_group
+      - user_type
+    SharedCredentialGroup:
+      type: object
+      properties:
+        origin_company_id:
+          type: string
+          nullable: true
+        origin_company_name:
+          type: string
+          nullable: true
+        custom_groupings:
+          type: object
+          additionalProperties:
+            type: string
+    ToolPackPublic:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        description:
+          type: string
+        connectors:
+          type: string
+          readOnly: true
+      required:
+      - connectors
+      - description
+      - id
+      - name
+    UserTypeEnum:
+      enum:
+      - HUMAN
+      - SYSTEM
+      type: string
+      description: |-
+        * `HUMAN` - HUMAN
+        * `SYSTEM` - SYSTEM
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: __Secure-sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+servers:
+- url: https://merge.dev
+  description: Production server
