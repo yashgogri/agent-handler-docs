@@ -1,0 +1,45 @@
+# How to create a Registered User
+This guide will explain how to programmatically create a Registered User within Agent Handler. 
+
+The key components of a Registered User are: 
+
+- **Origin User ID**: Unique ID of the user of the agent.
+- **Origin User Name**: The name of the user of the agent 
+- **Shared Credentials Group:** The object that identifies the different groups a user is part of. 
+    - **Origin Company ID**: The unique ID of the company of the user.
+    - **Origin Company Name**: The name of the company of the user. 
+    - **Custom Keys**:  This is an optional identifier / grouping container that you can provide for additional segmentation. 
+
+
+
+### POST Request body from Agent Handler:
+
+In your backend, set up a POST request to register the user to the below URL:
+
+`https://ah-merge.dev/api/v1/registered-users
+`
+
+**You will provide these values in the request to Merge.**
+```jsx
+{
+"origin_user_id": "customer_A_uuid_1234", // required UUID of user
+"origin_user_name": "Yash Gogri", // human-readable user name
+"shared_credential_group": {
+	"origin_company_id": "Merge_uuid_12345", // optional UUID of the company the user is from 
+	"origin_company_name": "Merge", // human-readable name of company
+	"custom_groupings": {
+		"custom_key_1": "Engineering", // an additional grouping under the Origin Company 
+	}
+}
+}
+```
+
+### API Response from Agent Handler:
+
+```jsx
+{
+"registered_user_id": "f9813dd5-e70b-484c-91d8-00acd6065b07"
+}
+```
+
+This ID will be used as part of your MCP Entry URL for when the given Registered User begins to interact with your agent. 
