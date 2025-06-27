@@ -1,16 +1,20 @@
-# How to create a Registered User
-This guide will explain how to programmatically create a Registered User within Agent Handler. 
+---
+title: "Registered Users"
+description: "Everything you need to know about Registered Users"
+---
 
-The key components of a Registered User are: 
+# How to create a Registered User
+
+This guide will explain how to programmatically create a Registered User within Agent Handler.
+
+The key components of a Registered User are:
 
 - **Origin User ID**: Unique ID of the user of the agent.
-- **Origin User Name**: The name of the user of the agent 
-- **Shared Credentials Group:** The object that identifies the different groups a user is part of. 
-    - **Origin Company ID**: The unique ID of the company of the user.
-    - **Origin Company Name**: The name of the company of the user. 
-    - **Custom Keys**:  This is an optional identifier / grouping container that you can provide for additional segmentation. 
-
-
+- **Origin User Name**: The name of the user of the agent
+- **Shared Credentials Group:** The object that identifies the different groups a user is part of.
+  - **Origin Company ID**: The unique ID of the company of the user.
+  - **Origin Company Name**: The name of the company of the user.
+  - **Custom Keys**:  This is an optional identifier / grouping container that you can provide for additional segmentation.
 
 ### POST Request body from Agent Handler:
 
@@ -20,6 +24,7 @@ In your backend, set up a POST request to register the user to the below URL:
 `
 
 **You will provide these values in the request to Merge.**
+
 ```jsx
 {
 "origin_user_id": "customer_A_uuid_1234", // required UUID of user
@@ -42,4 +47,4 @@ In your backend, set up a POST request to register the user to the below URL:
 }
 ```
 
-This ID will be used as part of your MCP Entry URL for when the given Registered User begins to interact with your agent. 
+This ID will be used as part of your MCP Entry URL for when the given Registered User begins to interact with your agent.
