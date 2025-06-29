@@ -17,7 +17,7 @@
             "group": "Get Started",
             "pages": [
               "Introduction",
-              "/how-to-create-registered-users",
+              "How to create a Registered User",
               "How to create Tool Packs", 
               "Agent Handler Link",
               "How to connect Agent Handler MCP"
@@ -38,7 +38,7 @@
       },
       {
         "tab": "API Reference",
-        "openapi": "/api-reference/API-docs.yaml"
+        "openapi": "api-reference/API-docs.yaml"
       }
     ],
     "global": {
