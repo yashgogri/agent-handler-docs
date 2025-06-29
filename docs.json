@@ -38,7 +38,7 @@
       },
       {
         "tab": "API Reference",
-        "openapi": "api-reference/API-docs.yaml"
+        "openapi": "/api-reference/API-docs.yaml"
       }
     ],
     "global": {
