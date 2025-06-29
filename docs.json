@@ -16,9 +16,11 @@
           {
             "group": "Get Started",
             "pages": [
-              "index",
-              "quickstart",
-              "development"
+              "Introduction",
+              "How to create a Registered User",
+              "How to create Tool Packs", 
+              "Agent Handler Link",
+              "How to connect Agent Handler MCP"
             ]
           },
           {
@@ -36,40 +38,24 @@
       },
       {
         "tab": "API Reference",
-        "groups": [
-          {
-            "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
+        "openapi": "openapi.yaml"
       }
     ],
     "global": {
       "anchors": [
         {
           "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "href": "https://ah-merge.dev/docs",
           "icon": "book-open-cover"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
+          "anchor": "Merge Unified API",
+          "href": "https://merge.dev",
           "icon": "slack"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
+          "anchor": "Waitlist",
+          "href": "https://www.merge.dev/agent-handler-waitlist",
           "icon": "newspaper"
         }
       ]
